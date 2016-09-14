@@ -60,8 +60,15 @@ def print_header
 end
 
 def print(students)
-   students.each_with_index do |student, index|
-     puts "#{index + 1}.#{student[:name]}. Cohort: #{student[:cohort]}. Country of birth: #{student[:country]}. Hobbies: #{student[:hobbies]}. Height: #{student[:height]}. Weight:#{student[:weight]}".center(150) if students.count > 0
+    puts "Which cohort would you like see the list of? If all, type: All"
+    which_cohort = gets.chomp
+     students.each_with_index do |student, index|
+    if which_cohort == "All"
+      puts "#{index + 1}.#{student[:name]}. Cohort: #{student[:cohort]}. Country of birth: #{student[:country]}. Hobbies: #{student[:hobbies]}. Height: #{student[:height]}. Weight:#{student[:weight]}".center(150) if students.count > 0
+      elsif which_cohort == student[:cohort]
+    students.map{|c| c[:cohort]}
+   puts "#{index + 1}.#{student[:name]}. Cohort: #{student[:cohort]}. Country of birth: #{student[:country]}. Hobbies: #{student[:hobbies]}. Height: #{student[:height]}. Weight:#{student[:weight]}".center(150) if students.count > 0
+   end
    end
 end
 
