@@ -1,11 +1,10 @@
 def input_students
-    puts "Please enter the names of the students"
-   puts "To finish, just hit return twice"
-   #create an empty array
+       #create an empty array
    students = []
    #get the first name and cohort
    loop do
    puts "Enter the student\'s name and cohort following this format: Name, Cohort"
+   puts "To finish, just hit return twice"
    nc = gets.strip
     if nc.empty? 
            break 
