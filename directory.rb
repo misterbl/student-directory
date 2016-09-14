@@ -6,7 +6,7 @@ def input_students
    #get the first name and cohort
    loop do
    puts "Enter the student\'s name and cohort following this format: Name, Cohort"
-   nc = gets.chomp
+   nc = gets.strip
     if nc.empty? 
            break 
     end
@@ -16,26 +16,27 @@ def input_students
     else array.push("'s cohort")
     end
      name_and_cohort = array.join('')
+     
     puts "what are their hobbies?"
-   hobbies = gets.chomp
+   hobbies = gets.strip
    if hobbies.empty?
        hobbies = "Not entered"
    end
    #get country of birth
    puts "What is their country of birth?"
-   country = gets.chomp
+   country = gets.strip
     if country.empty?
        country = "Not entered"
    end
    #get their height
    puts "What is their height?"
-   height = gets.chomp
+   height = gets.strip
    if height.empty?
        height = "Not entered"
    end
    #get their weight
    puts "What is their weight?"
-   weight = gets.chomp
+   weight = gets.strip
    if weight.empty?
        weight = "Not entered"
    end
