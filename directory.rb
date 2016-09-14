@@ -43,7 +43,9 @@ def input_students
   
        #add the student hash to the array
        students << {name: name_and_cohort, hobbies: hobbies, country: country, height: height, weight: weight}
-       puts "Now we have #{students.count} students"
+       if students.counts > 0
+        puts "Now we have #{students.count} students"
+    end
        #get another name from the user
      
       
@@ -53,23 +55,27 @@ def input_students
        students
 end
 
-def print_header
+def print_header 
+    if input_students.count > 0
    puts "The students of Villains Academy"
    puts "-------------"
+   end
 end
 
 def print(students)
    students.each_with_index do |student, index|
-     puts "#{index + 1} #{student[:name]}: Country of birth: #{student[:country]}. Hobbies: #{student[:hobbies]}. Height: #{student[:height]}. Weight:#{student[:weight]}".center(150)
+     puts "#{index + 1} #{student[:name]}: Country of birth: #{student[:country]}. Hobbies: #{student[:hobbies]}. Height: #{student[:height]}. Weight:#{student[:weight]}".center(150) if students.count > 0
    end
 end
 
 
 def print_footer(students)
+    if students.count > 0
     if students.count > 1
    puts "Overall, we have #{students.count} great students"
    else
    puts "Overall, we have #{students.count} great student" 
+   end
    end
 end
 
