@@ -3,19 +3,16 @@ def input_students
    students = []
    #get the first name and cohort
    loop do
-   puts "Enter the student\'s name and cohort following this format: Name, Cohort"
+   puts "Enter the student\'s name, press 'enter' and then type in the cohort"
    puts "To finish, just hit return twice"
-   nc = gets.strip
-    if nc.empty? 
+   name = gets.strip
+    if name.empty? 
            break 
     end
-   array = nc.split
-   if array[1] == nil
-       array.push(", (Name or Cohort not entered)")
-    else array.push("'s cohort")
+  cohort = gets.strip
+  if cohort.empty?
+      cohort = "Cohort not enter"
     end
-     name_and_cohort = array.join('')
-     
     puts "what are their hobbies?"
    hobbies = gets.strip
    if hobbies.empty?
@@ -42,8 +39,8 @@ def input_students
    #while the name is not empty
   
        #add the student hash to the array
-       students << {name: name_and_cohort, hobbies: hobbies, country: country, height: height, weight: weight}
-       if students.counts > 0
+       students << {name: name, cohort: cohort, hobbies: hobbies, country: country, height: height, weight: weight}
+       if students.count > 0
         puts "Now we have #{students.count} students"
     end
        #get another name from the user
@@ -64,7 +61,7 @@ end
 
 def print(students)
    students.each_with_index do |student, index|
-     puts "#{index + 1} #{student[:name]}: Country of birth: #{student[:country]}. Hobbies: #{student[:hobbies]}. Height: #{student[:height]}. Weight:#{student[:weight]}".center(150) if students.count > 0
+     puts "#{index + 1}.#{student[:name]}. Cohort: #{student[:cohort]}. Country of birth: #{student[:country]}. Hobbies: #{student[:hobbies]}. Height: #{student[:height]}. Weight:#{student[:weight]}".center(150) if students.count > 0
    end
 end
 
