@@ -3,32 +3,46 @@ def input_students
    puts "To finish, just hit return twice"
    #create an empty array
    students = []
-   #get the first name
+   #get the first name and cohort
    loop do
-   puts "What is the student\'s name?"
-   name = gets.chomp
-    if name.empty? 
+   puts "Enter the student\'s name and cohort following this format: Name, Cohort"
+   nc = gets.chomp
+    if nc.empty? 
            break 
-       end
-   #get their cohort
-   puts "What cohort are they on?"
-   cohort = gets.chomp
-   #get the hobbies
-   puts "what are their hobbies?"
+    end
+   array = nc.split
+   if array[1] == nil
+       array.push(", (Name or Cohort not entered)")
+    else array.push("'s cohort")
+    end
+     name_and_cohort = array.join('')
+    puts "what are their hobbies?"
    hobbies = gets.chomp
+   if hobbies.empty?
+       hobbies = "Not entered"
+   end
    #get country of birth
    puts "What is their country of birth?"
    country = gets.chomp
+    if country.empty?
+       country = "Not entered"
+   end
    #get their height
    puts "What is their height?"
    height = gets.chomp
+   if height.empty?
+       height = "Not entered"
+   end
    #get their weight
    puts "What is their weight?"
    weight = gets.chomp
+   if weight.empty?
+       weight = "Not entered"
+   end
    #while the name is not empty
   
        #add the student hash to the array
-       students << {name: name, cohort: cohort, hobbies: hobbies, country: country, height: height, weight: weight}
+       students << {name: name_and_cohort, hobbies: hobbies, country: country, height: height, weight: weight}
        puts "Now we have #{students.count} students"
        #get another name from the user
      
@@ -46,7 +60,7 @@ end
 
 def print(students)
    students.each_with_index do |student, index|
-     puts "#{index + 1} #{student[:name]} (#{student[:cohort]} cohort): Country of birth: #{student[:country]}. Hobbies: #{student[:hobbies]}. Height: #{student[:height]}. Weight:#{student[:weight]}".center(150)
+     puts "#{index + 1} #{student[:name]}: Country of birth: #{student[:country]}. Hobbies: #{student[:hobbies]}. Height: #{student[:height]}. Weight:#{student[:weight]}".center(150)
    end
 end
 
