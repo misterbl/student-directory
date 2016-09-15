@@ -1,47 +1,57 @@
   @students = []
 def input_students
-       #get the first name and cohort
-   loop do
-   puts "Enter the student\'s name, press 'enter' and then type in the cohort"
-   puts "To finish, just hit return twice"
-   name = STDIN.gets.strip
+    puts "Do you want to load the students information from a file?"
+    load_or_not = STDIN.gets.chomp
+    if load_or_not.downcase == "yes"
+        puts "Enter the filename (including the extension)"
+        filename = STDIN.gets.chomp
+        file = File.open(filename, "r")
+        file.readlines.each do |line|
+        name, cohort, hobbies, country, height, weight = line.chomp.split(',')
+        @students << {name: name, cohort: cohort, hobbies: hobbies, country: country, height: height, weight: weight}
+        end
+        file.close
+    elsif load_or_not.downcase == "no"
+    loop do
+    puts "Enter the student\'s name, press 'enter' and then type in the cohort"
+    puts "To finish, just hit return twice"
+    name = STDIN.gets.strip
     if name.empty? 
            break 
     end
-  cohort = STDIN.gets.strip
-  if cohort.empty?
-      cohort = "Cohort not enter"
+    cohort = STDIN.gets.strip
+    if cohort.empty?
+        cohort = "Cohort not enter"
     end
     puts "what are their hobbies?"
-   hobbies = STDIN.gets.strip
-   if hobbies.empty?
+    hobbies = STDIN.gets.strip
+     if hobbies.empty?
        hobbies = "Not entered"
-   end
+    end
    #get country of birth
-   puts "What is their country of birth?"
-   country = gets.strip
+    puts "What is their country of birth?"
+    country = gets.strip
     if country.empty?
        country = "Not entered"
-   end
+    end
    #get their height
-   puts "What is their height?"
-   height = STDIN.gets.strip
-   if height.empty?
+    puts "What is their height?"
+    height = STDIN.gets.strip
+    if height.empty?
        height = "Not entered"
-   end
+    end
    #get their weight
-   puts "What is their weight?"
-   weight = STDIN.gets.strip
-   if weight.empty?
+    puts "What is their weight?"
+    weight = STDIN.gets.strip
+    if weight.empty?
        weight = "Not entered"
-   end
-   #while the name is not empty
-  
+    end
        #add the student hash to the array
-       @students << {name: name, cohort: cohort, hobbies: hobbies, country: country, height: height, weight: weight}
-       if @students.count > 0
-        puts "Now we have #{@students.count} students"
-        end
+    @students << {name: name, cohort: cohort, hobbies: hobbies, country: country, height: height, weight: weight}
+    if @students.count > 0
+    puts "Now we have #{@students.count} students"
+    end
+   end
    end
 end
 
@@ -80,7 +90,6 @@ def print_menu
     puts "1. Input the students"
     puts "2. Show the students"
     puts "3. Save the list to students.csv"
-    puts "4. Load the list from students.csv"
     puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -98,9 +107,7 @@ def process(selection)
         show_students 
     when "3"
         save_students
-    when "4"
-        load_students
-    when "9"
+      when "9"
         exit # this will cause the program to terminate
     else
         puts "I don't know what you meant, try again"
@@ -122,15 +129,6 @@ def save_students
         student_data = [student[:name], student[:cohort]]
         csv_line = student_data.join(",")
         file.puts csv_line
-    end
-    file.close
-end
-
-def load_students(filename = "students.csv")
-    file = File.open(filename, "r")
-    file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
     end
     file.close
 end
