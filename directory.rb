@@ -4,16 +4,16 @@ def input_students
    loop do
    puts "Enter the student\'s name, press 'enter' and then type in the cohort"
    puts "To finish, just hit return twice"
-   name = gets.strip
+   name = STDIN.gets.strip
     if name.empty? 
            break 
     end
-  cohort = gets.strip
+  cohort = STDIN.gets.strip
   if cohort.empty?
       cohort = "Cohort not enter"
     end
     puts "what are their hobbies?"
-   hobbies = gets.strip
+   hobbies = STDIN.gets.strip
    if hobbies.empty?
        hobbies = "Not entered"
    end
@@ -25,13 +25,13 @@ def input_students
    end
    #get their height
    puts "What is their height?"
-   height = gets.strip
+   height = STDIN.gets.strip
    if height.empty?
        height = "Not entered"
    end
    #get their weight
    puts "What is their weight?"
-   weight = gets.strip
+   weight = STDIN.gets.strip
    if weight.empty?
        weight = "Not entered"
    end
@@ -53,7 +53,7 @@ end
 
 def print_student_list
     puts "Which cohort would you like see the list of? If all, type: All"
-    which_cohort = gets.chomp
+    which_cohort = STDIN.gets.chomp
      @students.each_with_index do |student, index|
     if which_cohort.downcase == "All".downcase
       puts "#{index + 1}.#{student[:name]}. Cohort: #{student[:cohort]}. Country of birth: #{student[:country]}. Hobbies: #{student[:hobbies]}. Height: #{student[:height]}. Weight:#{student[:weight]}".center(150) if @students.count > 0
@@ -110,7 +110,7 @@ def process(selection)
 def interactive_menu
    loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
    
 end
 end
@@ -126,13 +126,25 @@ def save_students
     file.close
 end
 
-def load_students
-    file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+    file = File.open(filename, "r")
     file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
     end
     file.close
+end
+
+def try_load_students
+    filename = ARGV.first
+    return if filename.nil?
+    if File.exists?(filename)
+        load_students(filename)
+        puts "Loaded #{@students.count} from #{filename}"
+    else
+        puts "Sorry, #{filename} doesn't exist"
+        exit
+    end
 end
 #nothing happens until we call the methods
 interactive_menu
