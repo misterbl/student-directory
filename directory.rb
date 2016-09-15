@@ -38,10 +38,12 @@ def process(selection)
     case selection
     when "1"
         try_load_students
+        puts "Student(s) loaded properly"
     when "2"
         show_students 
     when "3"
         save_students
+        puts "Student(s) saved properly"
       when "9"
         exit # this will cause the program to terminate
     else
