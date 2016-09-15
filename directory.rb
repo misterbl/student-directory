@@ -1,5 +1,6 @@
   @students = []
 def input_students
+    if ARGV.nil?
     puts "Do you want to load the students information from a file?"
     load_or_not = STDIN.gets.chomp
     if load_or_not.downcase == "yes"
@@ -53,6 +54,8 @@ def input_students
     end
    end
    end
+   end
+   else try_load_students
 end
 
 def print_header 
@@ -102,7 +105,7 @@ end
 def process(selection)
     case selection
     when "1"
-        input_students
+        try_load_students
     when "2"
         show_students 
     when "3"
@@ -135,10 +138,18 @@ end
 
 def try_load_students
     filename = ARGV.first
-    return if filename.nil?
-    if File.exists?(filename)
-        load_students(filename)
+    if filename.nil?
+        file = File.open("students.csv", "r")
+        file.readlines.each do |line|
+        name, cohort, hobbies, country, height, weight = line.chomp.split(',')
+        @students << {name: name, cohort: cohort, hobbies: hobbies, country: country, height: height, weight: weight}
         puts "Loaded #{@students.count} from #{filename}"
+        end
+        file.close
+    elsif File.exists?(filename)
+        try_load_students
+        (filename)
+        
     else
         puts "Sorry, #{filename} doesn't exist"
         exit
