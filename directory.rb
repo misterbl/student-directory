@@ -60,25 +60,25 @@ end
 
 def save_students
     #open the file for writing
-    file = File.open("students.csv", "w")
+    File.open("students.csv", "w") do |file| 
     @students.each do |student|
         student_data = [student[:name], student[:cohort]]
         csv_line = student_data.join(",")
         file.puts csv_line
     end
-    file.close
+  end
 end
 
 def try_load_students
     filename = ARGV.first
     if filename.nil?
-        file = File.open("students.csv", "r")
+        File.open("students.csv", "r") do |file|
         file.readlines.each do |line|
         name, cohort, hobbies, country, height, weight = line.chomp.split(',')
         @students << {name: name, cohort: cohort, hobbies: hobbies, country: country, height: height, weight: weight}
         puts "Loaded #{@students.count} from #{filename}"
         end
-        file.close
+    end
     elsif File.exists?(filename)
         try_load_students
         (filename)
