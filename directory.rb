@@ -60,9 +60,9 @@ end
 
 def save_students
     #open the file for writing
-    File.open("students.csv", "w") do |file| 
+    File.open("students.csv", "wb") do |csv| 
     @students.each do |student|
-        student_data = [student[:name], student[:cohort]]
+        csv << [student[:name], student[:cohort]]
         csv_line = student_data.join(",")
         file.puts csv_line
     end
@@ -72,7 +72,7 @@ end
 def try_load_students
     filename = ARGV.first
     if filename.nil?
-        File.open("students.csv", "r") do |file|
+        File.foreach("students.csv") do |file|
         file.readlines.each do |line|
         name, cohort, hobbies, country, height, weight = line.chomp.split(',')
         @students << {name: name, cohort: cohort, hobbies: hobbies, country: country, height: height, weight: weight}
